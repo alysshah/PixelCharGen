@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pixel Character Generator ~</title>
+    <link rel="stylesheet" href="char_gen_style.css">
+
+    <script type="text/javascript">
+    //Math.floor(Math.random()*NUMBER OF THINGS)+1
+
+//////////////////////////// RANDOMLY GENERATED FUNCTION ////////////////////////////
+
+
+      function gen_rand(){
+
+      //PART 1
+        //SKIN
+        var radios = document.getElementsByName('skinColors');
+        var charSkinNum = Math.floor(Math.random()*radios.length)+1;
+        //EYE
+      	var radios = document.getElementsByName('eyeColors');
+        var charEyesNum = Math.floor(Math.random()*radios.length)+1;
+        //HAIR COLOR
+        var radios = document.getElementsByName('hairColors');
+        var charHairColor = Math.floor(Math.random()*radios.length)+1;
+        //HAIR STYLE
+        var radios = document.getElementsByName('hairStyle');
+        var charHairStyle = Math.floor(Math.random()*radios.length)+1;
+        //SHOES
+        var radios = document.getElementsByName('shoesStyle');
+        var charShoesNum = Math.floor(Math.random()*radios.length)+1;
+        //BOTTOM
+        var radios = document.getElementsByName('bottomStyle');
+        var charBottomNum = Math.floor(Math.random()*radios.length)+1;
+        //TOP
+        var radios = document.getElementsByName('topStyle');
+        var charTopNum = Math.floor(Math.random()*radios.length)+1;
+        //FACIAL HAIR
+        var radios = document.getElementsByName('facialHair');
+        var charFacialHairStyle = weightedRand2({1:0.8, 2:0.05, 3:0.05, 4:0.05, 5:0.05});
+        //GLASSES
+        var radios = document.getElementsByName('glassesStyle');
+        var charGlassesNum = weightedRand2({1:0.8, 2:0.05, 3:0.05, 4:0.05, 5:0.05});
+
+        var charHairNum = ((Number(charHairColor)-1)*11) + Number(charHairStyle);
+        var charFacialHairNum = ((Number(charHairColor)-1)*5) + Number(charFacialHairStyle);
+
+      //PARTS 2
+        //SKIN
+        var charSkin = new Image();
+        var charSkinName = "assets/skin/skin" + charSkinNum + ".png";
+        charSkin.src = charSkinName;
+        //EYES
+        var charEyes = new Image();
+        var charEyesName = "assets/eyes/eyes" + charEyesNum + ".png";
+        charEyes.src = charEyesName;
+        //HAIR COLOR
+        var charHair = new Image();
+        var charHairName = "assets/hair/hair" + charHairNum + ".png";
+        charHair.src = charHairName;
+        //SHOES
+        var charShoes = new Image();
+        var charShoesName = "assets/shoes/shoes" + charShoesNum + ".png";
+        charShoes.src = charShoesName;
+        //BOTTOM
+        var charBottom = new Image();
+        var charBottomName = "assets/bottom/bottom" + charBottomNum + ".png";
+        charBottom.src = charBottomName;
+        //TOP
+        var charTop = new Image();
+        var charTopName = "assets/top/top" + charTopNum + ".png";
+        charTop.src = charTopName;
+        //FACIAL HAIR
+        var charFacialHair = new Image();
+        var charFacialHairName = "assets/facialHair/facialHair" + charFacialHairNum + ".png";
+        charFacialHair.src = charFacialHairName;
+        //GLASSES
+        var charGlasses = new Image();
+        var charGlassesName = "assets/glasses/glasses" + charGlassesNum + ".png";
+        charGlasses.src = charGlassesName;
+
+
+      //PARTS 3
+        //SKIN LOADED
+        charSkin.onload = function()
+        {buildChar();}
+        //EYES LOADED
+        charEyes.onload = function()
+        {buildChar();}
+        //HAIR LOADED
+        charHair.onload = function()
+        {buildChar();}
+        //SHOES LOADED
+        charShoes.onload = function()
+        {buildChar();}
+        //BOTTOM LOADED
+        charBottom.onload = function()
+        {buildChar();}
+        //TOP LOADED
+        charTop.onload = function()
+        {buildChar();}
+        //FACIAL HAIR LOADED
+        charFacialHair.onload = function()
+        {buildChar();}
+        //GLASSES LOADED
+        charGlasses.onload = function()
+        {buildChar();}
+
+
+        function buildChar()
+        {
+          var canvas = document.getElementById("canvas");
+          var ctx = canvas.getContext("2d");
+          canvas.width = 576;
+          canvas.height = 576;
+
+          //DRAW SKIN
+          ctx.drawImage(charSkin,0,0);
+          //DRAW EYES
+          ctx.drawImage(charEyes,0,0);
+          //DRAW HAIR
+          ctx.drawImage(charHair,0,0);
+          //DRAW SHOES
+          ctx.drawImage(charShoes,0,0);
+          //DRAW BOTTOM
+          ctx.drawImage(charBottom,0,0);
+          //DRAW TOP
+          ctx.drawImage(charTop,0,0);
+          //DRAW FACIAL HAIR
+          ctx.drawImage(charFacialHair,0,0);
+          //DRAW GLASSES
+          ctx.drawImage(charGlasses,0,0);
+        }
+
+        //source: https://stackoverflow.com/questions/8435183/generate-a-weighted-random-number
+        // function weightedRand(spec) {
+        //   var i, j, table=[];
+        //   for (i in spec) {
+        //     // The constant 10 below should be computed based on the
+        //     // weights in the spec for a correct and optimal table size.
+        //     // E.g. the spec {0:0.999, 1:0.001} will break this impl.
+        //     for (j=0; j<spec[i]*10; j++) {
+        //       table.push(i);
+        //     }
+        //   }
+        //   return function() {
+        //     return table[Math.floor(Math.random() * table.length)];
+        //   }
+        // }
+        function weightedRand2(spec) {
+          var i, sum=0, r=Math.random();
+          for (i in spec) {
+            sum += spec[i];
+            if (r <= sum) return i;
+          }
+        }
+
+        // var facialHair = weightedRand2({1:0.6, 2:0.1, 3:0.1, 4:0.1, 5:0.1});
+        // document.getElementById("thing").innerHTML = facialHair;
+      }
+
+//////////////////////////// ORIGINAL FUNCTION ////////////////////////////
+
+      function gen(){
+
+      //PART 1
+
+        //SKIN
+        var radios = document.getElementsByName('skinColors');
+      	for (var i = 0, length = radios.length; i < length; i++) {
+        	if (radios[i].checked) {
+            var charSkinNum = radios[i].value;
+          	break;
+        	}
+      	}
+        //EYE
+      	var radios = document.getElementsByName('eyeColors');
+      	for (var i = 0, length = radios.length; i < length; i++) {
+        	if (radios[i].checked) {
+            var charEyesNum = radios[i].value;
+          	break;
+        	}
+      	}
+        //HAIR COLOR
+        var radios = document.getElementsByName('hairColors');
+        for (var i = 0, length = radios.length; i < length; i++) {
+          if (radios[i].checked) {
+            var charHairColor = radios[i].value;
+            break;
+          }
+        }
+        //HAIR STYLE
+        var radios = document.getElementsByName('hairStyle');
+        for (var i = 0, length = radios.length; i < length; i++) {
+          if (radios[i].checked) {
+            var charHairStyle = radios[i].value;
+            break;
+          }
+        }
+        //SHOES
+        var radios = document.getElementsByName('shoesStyle');
+        for (var i = 0, length = radios.length; i < length; i++) {
+          if (radios[i].checked) {
+            var charShoesNum = radios[i].value;
+            break;
+          }
+        }
+        //BOTTOM
+        var radios = document.getElementsByName('bottomStyle');
+        for (var i = 0, length = radios.length; i < length; i++) {
+          if (radios[i].checked) {
+            var charBottomNum = radios[i].value;
+            break;
+          }
+        }
+        //TOP
+        var radios = document.getElementsByName('topStyle');
+        for (var i = 0, length = radios.length; i < length; i++) {
+          if (radios[i].checked) {
+            var charTopNum = radios[i].value;
+            break;
+          }
+        }
+        //FACIAL HAIR
+        var radios = document.getElementsByName('facialHair');
+        for (var i = 0, length = radios.length; i < length; i++) {
+          if (radios[i].checked) {
+            var charFacialHairStyle = radios[i].value;
+            break;
+          }
+        }
+        //GLASSES
+        var radios = document.getElementsByName('glassesStyle');
+        for (var i = 0, length = radios.length; i < length; i++) {
+          if (radios[i].checked) {
+            var charGlassesNum = radios[i].value;
+            break;
+          }
+        }
+        // //HATS
+        // var radios = document.getElementsByName('hatsStyle');
+        // for (var i = 0, length = radios.length; i < length; i++) {
+        //   if (radios[i].checked) {
+        //     var charHatsNum = radios[i].value;
+        //     break;
+        //   }
+        // }
+
+      //PART 2
+
+        //SKIN
+        var charSkin = new Image();
+        var charSkinName = "assets/skin/skin" + charSkinNum + ".png";
+        charSkin.src = charSkinName;
+        //EYES
+        var charEyes = new Image();
+        var charEyesName = "assets/eyes/eyes" + charEyesNum + ".png";
+        charEyes.src = charEyesName;
+        //HAIR COLOR
+        var charHair = new Image();
+        charHairNum = ((Number(charHairColor)-1)*11) + Number(charHairStyle);
+        var charHairName = "assets/hair/hair" + charHairNum + ".png";
+        charHair.src = charHairName;
+        //SHOES
+        var charShoes = new Image();
+        var charShoesName = "assets/shoes/shoes" + charShoesNum + ".png";
+        charShoes.src = charShoesName;
+        //BOTTOM
+        var charBottom = new Image();
+        var charBottomName = "assets/bottom/bottom" + charBottomNum + ".png";
+        charBottom.src = charBottomName;
+        //TOP
+        var charTop = new Image();
+        var charTopName = "assets/top/top" + charTopNum + ".png";
+        charTop.src = charTopName;
+        //FACIAL HAIR
+        var charFacialHair = new Image();
+        charFacialHairNum = ((Number(charHairColor)-1)*5) + Number(charFacialHairStyle);
+        var charFacialHairName = "assets/facialHair/facialHair" + charFacialHairNum + ".png";
+        charFacialHair.src = charFacialHairName;
+        //GLASSES
+        var charGlasses = new Image();
+        var charGlassesName = "assets/glasses/glasses" + charGlassesNum + ".png";
+        charGlasses.src = charGlassesName;
+        // //HATS
+        // var charHats = new Image();
+        // var charHatsName = "hats/hats" + charHatsNum + ".png";
+        // charHats.src = charHatsName;
+
+      //PART 3
+
+        //SKIN LOADED
+        charSkin.onload = function()
+        {buildChar();}
+        //EYES LOADED
+        charEyes.onload = function()
+        {buildChar();}
+        //HAIR LOADED
+        charHair.onload = function()
+        {buildChar();}
+        //SHOES LOADED
+        charShoes.onload = function()
+        {buildChar();}
+        //BOTTOM LOADED
+        charBottom.onload = function()
+        {buildChar();}
+        //TOP LOADED
+        charTop.onload = function()
+        {buildChar();}
+        //FACIAL HAIR LOADED
+        charFacialHair.onload = function()
+        {buildChar();}
+        //GLASSES LOADED
+        charGlasses.onload = function()
+        {buildChar();}
+        // //HATS LOADED
+        // charHats.onload = function()
+        // {buildChar();}
+
+
+        function buildChar()
+        {
+          var canvas = document.getElementById("canvas");
+          var ctx = canvas.getContext("2d");
+          canvas.width = 576;
+          canvas.height = 576;
+
+          //DRAW SKIN
+          ctx.drawImage(charSkin,0,0);
+          //DRAW EYES
+          ctx.drawImage(charEyes,0,0);
+          //DRAW HAIR
+          ctx.drawImage(charHair,0,0);
+          //DRAW SHOES
+          ctx.drawImage(charShoes,0,0);
+          //DRAW BOTTOM
+          ctx.drawImage(charBottom,0,0);
+          //DRAW TOP
+          ctx.drawImage(charTop,0,0);
+          //DRAW FACIAL HAIR
+          ctx.drawImage(charFacialHair,0,0);
+          //DRAW GLASSES
+          ctx.drawImage(charGlasses,0,0);
+          // //DRAW HATS
+          // ctx.drawImage(charHats,0,0);
+        }
+      }
+
+    </script>
+
+
+  </head>
+  <body onload="gen()">
+
+    <div class="container">
+
+      <div class="right">
+        <div class="title">
+          <h1>PIXEL CHARACTER GENERATOR</h1>
+        </div>
+        <canvas id="canvas" width="576" height="576"></canvas>
+      </div>
+
+      <div class="left">
+        <h3>MAKE YOUR OWN CHARACTER:</h3>
+        <br>
+        <div class="radio">
+          <label for="color">Skin color: </label>
+          <input label="1" type="radio" name="skinColors" value="1" checked="checked"></input>
+          <input label="2" type="radio" name="skinColors" value="2"></input>
+          <input label="3" type="radio" name="skinColors" value="3"></input>
+          <input label="4" type="radio" name="skinColors" value="4"></input>
+          <input label="5" type="radio" name="skinColors" value="5"></input>
+          <br>
+        </div>
+        <div class="radio">
+          <label for="color">Eye color: </label>
+          <input label="blue" type="radio" name="eyeColors" value="1" checked="checked"></input>
+          <input label="green" type="radio" name="eyeColors" value="2"></input>
+          <input label="brown" type="radio" name="eyeColors" value="3"></input>
+          <input label="black" type="radio" name="eyeColors" value="4"></input>
+          <br>
+        </div>
+        <div class="radio">
+          <label for="color">Hair color: </label>
+          <input label="black" type="radio" name="hairColors" value="1" checked="checked"></input>
+          <input label="red" type="radio" name="hairColors" value="2"></input>
+          <input label="brown" type="radio" name="hairColors" value="3"></input>
+          <input label="blond" type="radio" name="hairColors" value="4"></input>
+          <br>
+        </div>
+        <div class="radio">
+          <label for="color">Hair style: </label>
+          <input label="1" type="radio" name="hairStyle" value="1" checked="checked"></input>
+          <input label="2" type="radio" name="hairStyle" value="2"></input>
+          <input label="3" type="radio" name="hairStyle" value="3"></input>
+          <input label="4" type="radio" name="hairStyle" value="4"></input>
+          <input label="5" type="radio" name="hairStyle" value="5"></input>
+          <input label="6" type="radio" name="hairStyle" value="6"></input>
+          <input label="7" type="radio" name="hairStyle" value="7"></input>
+          <input label="8" type="radio" name="hairStyle" value="8"></input>
+          <input label="9" type="radio" name="hairStyle" value="9"></input>
+          <input label="10" type="radio" name="hairStyle" value="10"></input>
+          <input label="11" type="radio" name="hairStyle" value="11"></input>
+          <br>
+        </div>
+        <div class="radio">
+          <label for="color">Shoes: </label>
+          <input label="1" type="radio" name="shoesStyle" value="1" checked="checked"></input>
+          <input label="2" type="radio" name="shoesStyle" value="2"></input>
+          <input label="3" type="radio" name="shoesStyle" value="3"></input>
+          <input label="4" type="radio" name="shoesStyle" value="4"></input>
+          <input label="5" type="radio" name="shoesStyle" value="5"></input>
+          <input label="6" type="radio" name="shoesStyle" value="6"></input>
+          <input label="7" type="radio" name="shoesStyle" value="7"></input>
+          <br>
+        </div>
+        <div class="radio">
+          <label for="color">Bottom: </label>
+          <input label="1" type="radio" name="bottomStyle" value="1" checked="checked"></input>
+          <input label="2" type="radio" name="bottomStyle" value="2"></input>
+          <input label="3" type="radio" name="bottomStyle" value="3"></input>
+          <input label="4" type="radio" name="bottomStyle" value="4"></input>
+          <input label="5" type="radio" name="bottomStyle" value="5"></input>
+          <input label="6" type="radio" name="bottomStyle" value="6"></input>
+          <input label="7" type="radio" name="bottomStyle" value="7"></input>
+          <br>
+        </div>
+        <div class="radio">
+            <label for="color">Top: </label>
+            <input label="1" type="radio" name="topStyle" value="1" checked="checked"></input>
+            <input label="2" type="radio" name="topStyle" value="2"></input>
+            <input label="3" type="radio" name="topStyle" value="3"></input>
+            <input label="4" type="radio" name="topStyle" value="4"></input>
+            <input label="5" type="radio" name="topStyle" value="5"></input>
+            <input label="6" type="radio" name="topStyle" value="6"></input>
+            <input label="7" type="radio" name="topStyle" value="7"></input>
+            <input label="8" type="radio" name="topStyle" value="8"></input>
+            <input label="9" type="radio" name="topStyle" value="9"></input>
+            <input label="10" type="radio" name="topStyle" value="10"></input>
+            <input label="11" type="radio" name="topStyle" value="11"></input>
+            <input label="12" type="radio" name="topStyle" value="12"></input>
+            <input label="13" type="radio" name="topStyle" value="13"></input>
+            <br>
+        </div>
+        <div class="radio">
+            <label for="color">Facial Hair: </label>
+            <input label="1" type="radio" name="facialHair" value="1" checked="checked"></input>
+            <input label="2" type="radio" name="facialHair" value="2"></input>
+            <input label="3" type="radio" name="facialHair" value="3"></input>
+            <input label="4" type="radio" name="facialHair" value="4"></input>
+            <input label="5" type="radio" name="facialHair" value="5"></input>
+            <br>
+        </div>
+        <div class="radio">
+            <label for="color">Glasses: </label>
+            <input label="1" type="radio" name="glassesStyle" value="1" checked="checked"></input>
+            <input label="2" type="radio" name="glassesStyle" value="2"></input>
+            <input label="3" type="radio" name="glassesStyle" value="3"></input>
+            <input label="4" type="radio" name="glassesStyle" value="4"></input>
+            <input label="5" type="radio" name="glassesStyle" value="5"></input>
+            <br>
+        </div>
+        <!-- <div class="radio">
+            <label for="color">Hats: </label>
+            <input label="1" type="radio" name="hatsStyle" value="1" checked="checked"></input>
+            <input label="2" type="radio" name="hatsStyle" value="2"></input>
+            <input label="3" type="radio" name="hatsStyle" value="3"></input>
+            <input label="4" type="radio" name="hatsStyle" value="4"></input>
+            <input label="5" type="radio" name="hatsStyle" value="5"></input>
+            <input label="6" type="radio" name="hatsStyle" value="6"></input>
+            <br>
+        </div> -->
+        <div class="test">
+          <button onclick="gen()">Apply changes</button>
+        </div>
+        <br><br>
+        <h3>GENERATE A RANDOM CHARACTER:</h3>
+        <button onclick="gen_rand()">Generate</button>
+        <br><br>
+        <!-- had issues with downloading :/
+        <h3>DOWLOAD THIS CHARACTER:</h3>
+        <button onclick="downloadCanvasAsImage()">Download</button> -->
+        <!-- <p id="thing"></p> -->
+      </div>
+
+    </div>
+
+
+  </body>
+</html>
